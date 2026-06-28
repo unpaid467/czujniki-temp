@@ -13,6 +13,24 @@ Install these in Arduino IDE Library Manager:
 
 `Wire` is included with the ESP32 Arduino core.
 
+If compilation fails with:
+
+```text
+fatal error: Adafruit_GFX.h: No such file or directory
+```
+
+then `Adafruit GFX Library` is missing.
+
+If compilation fails with:
+
+```text
+fatal error: Adafruit_SSD1306.h: No such file or directory
+```
+
+then `Adafruit SSD1306` is missing.
+
+Install both libraries before uploading this sketch.
+
 ## Hardware
 
 - one LilyGO TTGO LoRa V1.3 board
