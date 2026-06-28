@@ -1,0 +1,3 @@
+# Local Wi-Fi credentials and other private sketch settings.
+wifi_secrets.h
+*.local.h
