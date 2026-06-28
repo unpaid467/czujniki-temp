@@ -19,6 +19,12 @@ Stage 2 is blocked:
 - the BME/BMP280 sensor pins are not soldered yet
 - no code should assume that the sensor is electrically connected
 
+Current safe work:
+
+- single-board ESP32 check over USB Serial
+- no LoRa transmission until antennas are connected
+- no BME/BMP280 testing until sensor pins are soldered
+
 ## Hardware
 
 - 2 x LilyGO TTGO LoRa V1.3
@@ -59,6 +65,7 @@ GardenSensors/
   receiver/
   tests/
     01_serial_test/
+    02_single_board_check/
     02_bme280_test/
     03_lora_test/
       sender/
