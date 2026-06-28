@@ -25,16 +25,27 @@ Open:
 tests/04_oled_ntp_time_test/04_oled_ntp_time_test.ino
 ```
 
-Change these two lines:
+For private local use, create this file:
 
-```cpp
-const char* WIFI_NAME = "CHANGE_ME";
-const char* WIFI_PASSWORD = "CHANGE_ME";
+```text
+tests/04_oled_ntp_time_test/wifi_secrets.h
 ```
 
-Use your Wi-Fi name and password.
+Use this format:
+
+```cpp
+#ifndef WIFI_SECRETS_H
+#define WIFI_SECRETS_H
+
+#define WIFI_NAME_VALUE "YOUR_WIFI_NAME"
+#define WIFI_PASSWORD_VALUE "YOUR_WIFI_PASSWORD"
+
+#endif
+```
 
 Do not commit real Wi-Fi passwords to GitHub.
+
+The repository includes `wifi_secrets.example.h` as a safe example.
 
 ## How It Works
 
