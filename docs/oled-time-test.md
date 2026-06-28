@@ -90,3 +90,19 @@ OLED time test
 ```
 
 The Serial Monitor also prints the same time at `115200` baud.
+
+## If The OLED Keeps Old Text
+
+If the OLED still shows old text, for example `waiting to receive`, but Serial
+Monitor shows this sketch is running, then the ESP32 is probably not talking to
+the OLED display correctly.
+
+The sketch checks two common OLED I2C addresses:
+
+```text
+Check address 0x3C: device found
+Check address 0x3D: no device
+```
+
+Copy the `Check address` lines from Serial Monitor. They tell us whether the
+display is visible on the expected I2C bus.
