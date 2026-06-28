@@ -4,8 +4,15 @@
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
 
-const char* WIFI_NAME = "CHANGE_ME";
-const char* WIFI_PASSWORD = "CHANGE_ME";
+#if __has_include("wifi_secrets.h")
+#include "wifi_secrets.h"
+#else
+#define WIFI_NAME_VALUE "CHANGE_ME"
+#define WIFI_PASSWORD_VALUE "CHANGE_ME"
+#endif
+
+const char* WIFI_NAME = WIFI_NAME_VALUE;
+const char* WIFI_PASSWORD = WIFI_PASSWORD_VALUE;
 
 const unsigned long SERIAL_BAUDRATE = 115200;
 const unsigned long ONE_SECOND_MS = 1000;
