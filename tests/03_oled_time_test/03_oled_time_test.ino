@@ -8,10 +8,12 @@ const unsigned long ONE_SECOND_MS = 1000;
 const int OLED_WIDTH = 128;
 const int OLED_HEIGHT = 64;
 const int OLED_RESET_PIN = 16;
-const int OLED_SDA_PIN = 4;
-const int OLED_SCL_PIN = 15;
 const int FIRST_OLED_ADDRESS = 0x3C;
 const int SECOND_OLED_ADDRESS = 0x3D;
+
+const int PIN_PAIR_COUNT = 4;
+const int SDA_PINS[PIN_PAIR_COUNT] = {4, 21, 5, 17};
+const int SCL_PINS[PIN_PAIR_COUNT] = {15, 22, 4, 5};
 
 int currentHour = 12;
 int currentMinute = 0;
@@ -19,6 +21,8 @@ int currentSecond = 0;
 
 unsigned long lastClockUpdateMs = 0;
 int oledAddress = FIRST_OLED_ADDRESS;
+int oledSdaPin = 4;
+int oledSclPin = 15;
 
 Adafruit_SSD1306 display(OLED_WIDTH, OLED_HEIGHT, &Wire, OLED_RESET_PIN);
 
@@ -32,16 +36,11 @@ void setup() {
   delay(20);
   digitalWrite(OLED_RESET_PIN, HIGH);
 
-  // Uruchom linie I2C, ktorymi ESP32 rozmawia z wyswietlaczem OLED.
-  Wire.begin(OLED_SDA_PIN, OLED_SCL_PIN);
-
   Serial.println();
   Serial.println("OLED time test started.");
-  Serial.println("Checking I2C bus...");
+  Serial.println("Searching for OLED display...");
 
-  oledAddress = findOledAddress();
-
-  if (oledAddress == 0) {
+  if (!findOledConnection()) {
     Serial.println("No OLED display was found on I2C.");
     Serial.println("The screen may use different pins on this board version.");
 
@@ -49,6 +48,11 @@ void setup() {
       delay(1000);
     }
   }
+
+  Serial.print("OLED pins found. SDA=");
+  Serial.print(oledSdaPin);
+  Serial.print(" SCL=");
+  Serial.println(oledSclPin);
 
   Serial.print("OLED address found: 0x");
   Serial.println(oledAddress, HEX);
@@ -97,6 +101,30 @@ void addOneSecond() {
   if (currentHour >= 24) {
     currentHour = 0;
   }
+}
+
+bool findOledConnection() {
+  for (int i = 0; i < PIN_PAIR_COUNT; i++) {
+    oledSdaPin = SDA_PINS[i];
+    oledSclPin = SCL_PINS[i];
+
+    Serial.print("Checking pins SDA=");
+    Serial.print(oledSdaPin);
+    Serial.print(" SCL=");
+    Serial.println(oledSclPin);
+
+    Wire.end();
+    Wire.begin(oledSdaPin, oledSclPin);
+    delay(50);
+
+    oledAddress = findOledAddress();
+
+    if (oledAddress != 0) {
+      return true;
+    }
+  }
+
+  return false;
 }
 
 int findOledAddress() {
