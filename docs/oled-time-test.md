@@ -97,12 +97,14 @@ If the OLED still shows old text, for example `waiting to receive`, but Serial
 Monitor shows this sketch is running, then the ESP32 is probably not talking to
 the OLED display correctly.
 
-The sketch checks two common OLED I2C addresses:
+The sketch checks several common OLED pin pairs and two common OLED I2C
+addresses:
 
 ```text
+Checking pins SDA=4 SCL=15
 Check address 0x3C: device found
 Check address 0x3D: no device
 ```
 
-Copy the `Check address` lines from Serial Monitor. They tell us whether the
-display is visible on the expected I2C bus.
+Copy the `Checking pins` and `Check address` lines from Serial Monitor. They
+tell us whether the display is visible on one of the common I2C buses.
