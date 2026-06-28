@@ -22,6 +22,7 @@ Stage 2 is blocked:
 Current safe work:
 
 - single-board ESP32 check over USB Serial
+- OLED display clock test without LoRa radio
 - no LoRa transmission until antennas are connected
 - no BME/BMP280 testing until sensor pins are soldered
 
@@ -66,6 +67,7 @@ GardenSensors/
   tests/
     01_serial_test/
     02_single_board_check/
+    03_oled_time_test/
     02_bme280_test/
     03_lora_test/
       sender/
